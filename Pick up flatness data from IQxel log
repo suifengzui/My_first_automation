@@ -1,0 +1,19 @@
+with open(r'C:\Users\jxie\Desktop\7.2.txt', mode = 'r', encoding ='utf-8') as source_f: #打开log
+    source_data = source_f.readlines()
+with open(r'C:\Users\jxie\Desktop\try.txt', mode = 'r', encoding ='utf-8') as match_f: #打开需要匹配的文件（定位文件）
+    match_data = match_f.readlines()
+
+number = [] #新建空列表，保存定位文件中每个定位语句的index。
+for each in match_data: #遍历定位文件中的每条语句
+    #print(each)# 这里遗留一个问题：定位文件中需要在最后加入一行不需要定位的语句，否则定位文件会缺少一个。
+    if each in source_data: #定位语句在log中匹配，一旦匹配到，将其index赋值给number列表。
+        number.append(source_data.index(each))
+#print(number)
+add = 63   #需要查找的数据与定位数据之间index的差值
+width = len(number)
+for i in range(width): #定位到查找数据的index。
+    number[i] += 63
+#print(number)
+
+for x in range(width): #打印需要查找的数据
+    print(source_data[number[x]])
